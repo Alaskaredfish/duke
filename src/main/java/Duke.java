@@ -1,5 +1,7 @@
 import java.util.Scanner;
 public class Duke {
+    static private String[] list = new String[100];
+    static private int listCount = 0;
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -24,10 +26,31 @@ public class Duke {
             command = userInput.nextLine();
             if (command.equals("bye")) {
                 exit();
+            } else if (command.equals("list")) {
+                printList();
             } else {
+                for (int i = 0; i < listCount; i++){
+                    if (list[i].equals(command)){
+                        exist = true;
+                    }
+                }
+                if (exist == true){
+                    command = command + " exist";
+                } else {
+                    list[listCount] = command;
+                    listCount ++;
+                    command = "added: " + command;
+                }
                 echo(command);
             }
         } while (!(command.equals("bye")));
+    }
+
+    public static void printList() {
+        for(int i = 0; i < listCount; i++) {
+            String count = Integer.toString(i + 1) + ". ";
+            System.out.print(count + list[i] + "\n");
+        }
     }
     public static void echo(String toEcho) {
         System.out.print(toEcho + "\n");
@@ -35,5 +58,4 @@ public class Duke {
     public static void exit() {
         System.out.print("Bye. Remember!\nIn times of crisis, the wise build bridges while the foolish build barriers.");
     }
-
 }
